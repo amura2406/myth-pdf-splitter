@@ -1,7 +1,7 @@
 package id.co.ojk.pdfsplitter.model;
 
 public class PreviewResult{
-  private int success;
+  private int success = -1;
   private String pdfName;
   private String errMsg;
   

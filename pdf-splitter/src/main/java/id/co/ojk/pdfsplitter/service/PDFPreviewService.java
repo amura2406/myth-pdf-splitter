@@ -48,12 +48,14 @@ public class PDFPreviewService{
         BufferedImage image = page.convertToImage(BufferedImage.TYPE_INT_RGB, resolution);
         BufferedImage resizedImg = resize(image, Method.SPEED, Mode.FIT_TO_WIDTH, rW, OP_ANTIALIAS);
         
-        String fileName = String.format("%s%d.%s", resultFolder, (i + 1), IMG_FORMAT);
+        int imgIdx = i+1;
+        String fileName = String.format("%s%s%d.%s", resultFolder, File.separator, imgIdx, IMG_FORMAT);
+        String relWebPath = String.format("/%s/%s/%d.%s", subPath, resultFolder, imgIdx, IMG_FORMAT);
         File testFilePath = new File(baseResultFolder + fileName);
         if(!testFilePath.exists()) testFilePath.getParentFile().mkdirs();
         LOGGER.debug("Writing: " + testFilePath.getAbsolutePath());
         bSuccess &= ImageIOUtil.writeImage(resizedImg, testFilePath.getAbsolutePath(), resolution);
-        result[i] = String.format("/%s/%s", subPath, fileName);
+        result[i] = relWebPath;
     }
     
     if(!bSuccess) throw new IllegalStateException("Can't dump PDF to images !");

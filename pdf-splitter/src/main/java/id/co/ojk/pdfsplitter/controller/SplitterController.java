@@ -25,7 +25,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RequestMapping("/split")
 public class SplitterController{
   private static final Logger LOGGER = LoggerFactory.getLogger(SplitterController.class);
-  private static final String DF = "yyyyMMdd";
+  private static final String DF = "yyyyMMdd-HHmmss";
   private static final String PDF_FORMAT = ".pdf";
   
   @Value("${result.folder}")
@@ -47,9 +47,9 @@ public class SplitterController{
         DateFormat df = new SimpleDateFormat(DF);
         String md5Hex = DigestUtils.md5Hex("" + now.getTime());
         
-        String folderName = String.format("%s-%s%s", df.format(now), md5Hex, File.separator);
+        String folderName = String.format("%s-%s", df.format(now), md5Hex);
         
-        File tempFile = new File(String.format("%s%sori%s", baseResultFolder, folderName, PDF_FORMAT));
+        File tempFile = new File(String.format("%s%s%sori%s", baseResultFolder, folderName, File.separator, PDF_FORMAT));
         LOGGER.info("Relocating PDF file to : {}", tempFile.getAbsolutePath());
         tempFile.getParentFile().mkdirs();
         pdfFile.transferTo(tempFile);
@@ -58,7 +58,7 @@ public class SplitterController{
         
         String[] previews = previewService.getPreview(document, folderName);
         result.setSuccess(1);
-        result.setPdfName(md5Hex);
+        result.setPdfName(folderName);
         result.setImagesUrl(previews);
         LOGGER.info("Processed previews in {} milliseconds", System.currentTimeMillis()-startTs);
       }catch(Exception e){
