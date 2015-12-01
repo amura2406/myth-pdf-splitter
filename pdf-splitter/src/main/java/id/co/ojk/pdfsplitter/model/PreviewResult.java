@@ -1,19 +1,8 @@
 package id.co.ojk.pdfsplitter.model;
 
-public class PreviewResult{
-  private int success = -1;
+public class PreviewResult extends ResponseResult{
   private String pdfName;
-  private String errMsg;
-  
   private String[] imagesUrl;
-
-  public int getSuccess(){
-    return success;
-  }
-
-  public void setSuccess(int success){
-    this.success = success;
-  }
 
   public String getPdfName(){
     return pdfName;
@@ -21,14 +10,6 @@ public class PreviewResult{
 
   public void setPdfName(String pdfName){
     this.pdfName = pdfName;
-  }
-  
-  public String getErrMsg(){
-    return errMsg;
-  }
-
-  public void setErrMsg(String errMsg){
-    this.errMsg = errMsg;
   }
   
   public String[] getImagesUrl(){
