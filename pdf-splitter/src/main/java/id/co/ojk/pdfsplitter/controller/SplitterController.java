@@ -171,7 +171,7 @@ public class SplitterController{
         if(firstReqId < 0) throw new IllegalArgumentException(String.format("No Page number %d", firstReqId));
         
         int lastReqId = ids[ids.length-1];
-        if(lastReqId >= (maxPage-1)) throw new IllegalArgumentException(String.format("No Page number %d", lastReqId));
+        if(lastReqId > (maxPage-1)) throw new IllegalArgumentException(String.format("No Page number %d", lastReqId));
         
         PDDocument newDocument = new PDDocument();
         newDocument.setDocumentInformation(document.getDocumentInformation());
@@ -218,6 +218,14 @@ public class SplitterController{
         writer.write(newDocument);
         
         result.setSuccess(1);
+        
+        // DELETE temp file
+        File srcFldr = source.getParentFile();
+        File[] tempFiles = srcFldr.listFiles();
+        boolean isDelSuccess = true;
+        for(File tmp: tempFiles) isDelSuccess &= tmp.delete();
+        if(isDelSuccess) srcFldr.delete();
+        
         LOGGER.info("Processed splitting in {} milliseconds", System.currentTimeMillis()-startTs);
       }catch(Exception e){
         LOGGER.error("Error while splitting document [{}] : {}", source.getAbsolutePath(), e.getMessage());

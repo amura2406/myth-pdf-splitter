@@ -1,1 +1,1 @@
-java -Dspring.config.name="pdfsplitter" -Dspring.profiles.active="prod" -jar pdf-splitter-1.0-exec.jar
+java -Dspring.config.name="pdfsplitter" -Dspring.profiles.active="prod" -jar pdf-splitter-1.0.1-exec.jar

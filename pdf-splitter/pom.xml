@@ -2,7 +2,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>ojk</groupId>
   <artifactId>pdf-splitter</artifactId>
-  <version>1.0</version>
+  <version>1.0.1</version>
   
   <build>
     <plugins>
@@ -65,10 +65,5 @@
 		  <artifactId>imgscalr-lib</artifactId>
 		  <version>${scalr.version}</version>
 		</dependency>
-    <dependency>
-    	<groupId>org.neo4j</groupId>
-    	<artifactId>neo4j-cypher-compiler-2.1</artifactId>
-    	<version>2.1.5</version>
-    </dependency>
   </dependencies>
 </project>
